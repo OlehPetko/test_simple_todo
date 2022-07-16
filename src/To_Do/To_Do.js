@@ -3,16 +3,17 @@ import {useState} from "react";
 
 function To_Do() {
     const initialState = [
-        {id: Math.random(), todo: 'Make breakfast'},
-        {id: Math.random(), todo: 'Play football'},
-        {id: Math.random(), todo: 'Working'},
-        {id: Math.random(), todo: 'Sleep'},
-        {id: Math.random(), todo: 'Drink'}
+        {id: Math.random(), todo: 'Make breakfast', openUpdate: false},
+        {id: Math.random(), todo: 'Play football', openUpdate: false},
+        {id: Math.random(), todo: 'Working', openUpdate: false},
+        {id: Math.random(), todo: 'Sleep', openUpdate: false},
+        {id: Math.random(), todo: 'Drink', openUpdate: false}
     ]
     const [todos, setTodos] = useState(initialState)
     const [addNewTodos, setAddNewTodos] = useState('')
+    const [updateInput, setUpdateInput] = useState('')
     const addTodo = () => {
-        const newTodo = [...todos, {id: Math.random(), todo: addNewTodos}]
+        const newTodo = [...todos, {id: Math.random(), todo: addNewTodos, openUpdate: false}]
         setTodos(newTodo)
         setAddNewTodos('')
     }
@@ -20,7 +21,11 @@ function To_Do() {
       const newTodo = todos.filter(el => el.id !== id)
         setTodos(newTodo)
     }
-
+const openUpdate = (id) => {
+  const newTodo = todos.map(el => el.id === id ? {...el, openUpdate: !el.openUpdate} : el)
+    setTodos(newTodo)
+    setUpdateInput('')
+}
     return (
         <div className="App">
             <h1>TO_DO</h1>
@@ -31,7 +36,16 @@ function To_Do() {
                 <div key={el.id}>
                     {el.todo}
                     <button onClick={() => del(el.id)}>delete task</button>
-                    <button>update task</button>
+                    {el.openUpdate ?
+                        <div>
+                            <input placeholder='your new tasks' value={updateInput}
+                                   onChange={event => setUpdateInput(event.target.value)}/>
+                            <button>save</button>
+                            <button onClick={() => openUpdate(el.id)}>cancel</button>
+                        </div>
+                       :
+                        <button onClick={() => openUpdate(el.id)}>update task</button>
+                    }
                     <button>done task</button>
                 </div>)}
         </div>
