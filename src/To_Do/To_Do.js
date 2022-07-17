@@ -2,13 +2,7 @@ import '../App.css';
 import {useState} from "react";
 
 function To_Do() {
-    const initialState = [
-        {id: Math.random(), todo: 'Make breakfast', openUpdate: false},
-        {id: Math.random(), todo: 'Play football', openUpdate: false},
-        {id: Math.random(), todo: 'Working', openUpdate: false},
-        {id: Math.random(), todo: 'Sleep', openUpdate: false},
-        {id: Math.random(), todo: 'Drink', openUpdate: false}
-    ]
+    const initialState = []
     const [todos, setTodos] = useState(initialState)
     const [addNewTodos, setAddNewTodos] = useState('')
     const [updateInput, setUpdateInput] = useState('')
@@ -26,6 +20,7 @@ const openUpdate = (id) => {
     setTodos(newTodo)
     setUpdateInput('')
 }
+
     return (
         <div className="App">
             <h1>TO_DO</h1>

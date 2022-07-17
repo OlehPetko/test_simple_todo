@@ -2,9 +2,7 @@ import '../App.css';
 import {useState} from "react";
 
 function Counter() {
-    const initialState = [
-
-    ]
+    const initialState = []
     const [count, setCount] = useState(initialState)
     const minusPlusCounter = (id, valueCounter) => {
      const newCount = count.map(el => el.id === id ? {...el, counter: el.counter + valueCounter} : el)
