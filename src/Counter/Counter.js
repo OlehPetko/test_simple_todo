@@ -6,7 +6,7 @@ function Counter() {
     const [count, setCount] = useState(initialState)
     const initialState2 = []
     const [count2, setCount2] = useState(initialState2)
-    const [newCount, setNewCount] = useState([])
+    const [newCount, setNewCount] = useState([0])
     const minusPlusCounter = (id, valueCounter) => {
         const newCount = count.map(el => el.id === id ? {...el, counter: el.counter + valueCounter} : el)
         setCount(newCount)

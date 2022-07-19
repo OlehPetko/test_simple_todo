@@ -20,6 +20,11 @@ const openUpdate = (id) => {
     setTodos(newTodo)
     setUpdateInput('')
 }
+const saveUpdate = (id) => {
+  const newTodo = todos.map(el => el.id === id ? {...el, todo: updateInput, openUpdate: !el.openUpdate} : el)
+    setTodos(newTodo)
+    setUpdateInput('')
+}
 
     return (
         <div className="App">
@@ -35,7 +40,7 @@ const openUpdate = (id) => {
                         <div>
                             <input placeholder='your new tasks' value={updateInput}
                                    onChange={event => setUpdateInput(event.target.value)}/>
-                            <button>save</button>
+                            <button onClick={() => saveUpdate(el.id)}>save</button>
                             <button onClick={() => openUpdate(el.id)}>cancel</button>
                         </div>
                        :
