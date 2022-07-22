@@ -7,7 +7,7 @@ function To_Do() {
     const [addNewTodos, setAddNewTodos] = useState('')
     const [updateInput, setUpdateInput] = useState('')
     const addTodo = () => {
-        const newTodo = [...todos, {id: Math.random(), todo: addNewTodos, openUpdate: false}]
+        const newTodo = [...todos, {id: Math.random(), todo: addNewTodos, openUpdate: false, changeDone: true}]
         setTodos(newTodo)
         setAddNewTodos('')
     }
@@ -24,6 +24,10 @@ const saveUpdate = (id) => {
   const newTodo = todos.map(el => el.id === id ? {...el, todo: updateInput, openUpdate: !el.openUpdate} : el)
     setTodos(newTodo)
     setUpdateInput('')
+}
+const done = (id) => {
+  const newTodo = todos.map(el => el.id === id ? {...el, changeDone: !el.changeDone} : el)
+    setTodos(newTodo)
 }
 
     return (
@@ -46,7 +50,7 @@ const saveUpdate = (id) => {
                        :
                         <button onClick={() => openUpdate(el.id)}>update task</button>
                     }
-                    <button>done task</button>
+                    <button onClick={() => done(el.id)}>{el.changeDone ? 'done' : 'ready'}</button>
                 </div>)}
         </div>
     );
