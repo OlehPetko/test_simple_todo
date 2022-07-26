@@ -6,15 +6,15 @@ function Kanban() {
     const statuses = ['todo', 'review', 'progress', 'done']
     const [newTask, setNewTask] = useState('')
     const initialState = [
-        {id: Math.random(), status: statuses[0], name: 'Liverpool'},
-        {id: Math.random(), status: statuses[1], name: 'Vancouver'},
-        {id: Math.random(), status: statuses[2], name: 'Los Gatos'},
-        {id: Math.random(), status: statuses[3], name: 'Hawaii'},
+        {id: Math.random(), status: statuses[0], name: 'Liverpool', mark: false},
+        {id: Math.random(), status: statuses[1], name: 'Vancouver', mark: false},
+        {id: Math.random(), status: statuses[2], name: 'Los Gatos', mark: false},
+        {id: Math.random(), status: statuses[3], name: 'Hawaii', mark: false},
     ]
     const [task, setTask] = useState(initialState)
     const [updateNewTask, setUpdateNewTask] = useState('')
     const addTask = () => {
-        const addNewTask = [...task, {id: Math.random(), status: statuses[0], name: newTask}]
+        const addNewTask = [...task, {id: Math.random(), status: statuses[0], name: newTask, mark: false}]
         setTask(addNewTask)
         setNewTask('')
     }
@@ -27,6 +27,10 @@ function Kanban() {
         setTask(newTask)
         setUpdateNewTask('')
     }
+    const markDone = (id) => {
+      const newTask = task.map(el => el.id === id ? {...el, mark: !el.mark} : el)
+        setTask(newTask)
+    }
     return (
         <div className="App">
             <h1>KANBAN</h1>
@@ -38,8 +42,8 @@ function Kanban() {
                         {status}
                     </h4>
                     {task.filter(task => task.status === status).map(task =>
-                        <div key={task.id}>
-                            <input type="checkbox"/>
+                        <div key={task.id} style={task.mark? {textDecoration: 'line-through'} : null}>
+                            <input type="checkbox" onClick={() => markDone(task.id)}/>
                             <button>up</button>
                             {task.name}
                             <button>down</button>

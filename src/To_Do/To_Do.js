@@ -7,7 +7,7 @@ function To_Do() {
     const [addNewTodos, setAddNewTodos] = useState('')
     const [updateInput, setUpdateInput] = useState('')
     const addTodo = () => {
-        const newTodo = [...todos, {id: Math.random(), todo: addNewTodos, openUpdate: false, changeDone: true}]
+        const newTodo = [...todos, {id: Math.random(), todo: addNewTodos, openUpdate: false, changeDone: false}]
         setTodos(newTodo)
         setAddNewTodos('')
     }
@@ -37,7 +37,7 @@ const done = (id) => {
                    onChange={event => setAddNewTodos(event.target.value)}/>
             <button onClick={addTodo}>add task</button>
             {todos.map(el =>
-                <div key={el.id}>
+                <div key={el.id} style={el.changeDone ? {textDecoration: 'line-through'} : null}>
                     {el.todo}
                     <button onClick={() => del(el.id)}>delete task</button>
                     {el.openUpdate ?
@@ -50,7 +50,7 @@ const done = (id) => {
                        :
                         <button onClick={() => openUpdate(el.id)}>update task</button>
                     }
-                    <button onClick={() => done(el.id)}>{el.changeDone ? 'done' : 'ready'}</button>
+                    <button onClick={() => done(el.id)}>{el.changeDone ? 'ready' : 'done'}</button>
                 </div>)}
         </div>
     );
