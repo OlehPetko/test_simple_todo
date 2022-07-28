@@ -38,8 +38,10 @@ const done = (id) => {
             <button onClick={addTodo}>add task</button>
             {todos.map(el =>
                 <div key={el.id} style={el.changeDone ? {textDecoration: 'line-through'} : null}>
+                    <button>up</button>
                     {el.todo}
                     <button onClick={() => del(el.id)}>delete task</button>
+                    <button>down</button>
                     {el.openUpdate ?
                         <div>
                             <input placeholder='your new tasks' value={updateInput}
@@ -50,7 +52,7 @@ const done = (id) => {
                        :
                         <button onClick={() => openUpdate(el.id)}>update task</button>
                     }
-                    <button onClick={() => done(el.id)}>{el.changeDone ? 'ready' : 'done'}</button>
+                    <button style={el.changeDone ? {textDecoration: 'line-through'} : null} onClick={() => done(el.id)}>{el.changeDone ? 'ready' : 'done'}</button>
                 </div>)}
         </div>
     );
