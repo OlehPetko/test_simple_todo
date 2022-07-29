@@ -31,6 +31,10 @@ function Kanban() {
       const newTask = task.map(el => el.id === id ? {...el, mark: !el.mark} : el)
         setTask(newTask)
     }
+    const moveTask = (id, valueTask) => {
+      const newTodo = task.map(el => el.id === id ? {...el, status: statuses[statuses.indexOf(el.status) + valueTask]} : el)
+        setTask(newTodo)
+    }
     return (
         <div className="App">
             <h1>KANBAN</h1>
@@ -38,15 +42,15 @@ function Kanban() {
             <button onClick={addTask}>add new task</button>
             {statuses.map(status =>
                 <div key={status}>
-                    <h4>
+                    <h2>
                         {status}
-                    </h4>
+                    </h2>
                     {task.filter(task => task.status === status).map(task =>
                         <div key={task.id} style={task.mark? {textDecoration: 'line-through'} : null}>
                             <input type="checkbox" onClick={() => markDone(task.id)}/>
-                            <button>up</button>
+                            {status !== 'todo' && <button onClick={() => moveTask(task.id, - 1)}>up</button>}
                             {task.name}
-                            <button>down</button>
+                            {task.status !== 'done' && <button onClick={() => moveTask(task.id, 1)}>down</button>}
                             <button onClick={() => del(task.id)}>delete</button>
                             <input placeholder='your new task here' value={updateNewTask} onChange={e => setUpdateNewTask(e.target.value)}/>
                             <button onClick={() => updateTask(task.id)}>update</button>
