@@ -5,12 +5,7 @@ function Kanban() {
 
     const statuses = ['todo', 'review', 'progress', 'done']
     const [newTask, setNewTask] = useState('')
-    const initialState = [
-        {id: Math.random(), status: statuses[0], name: 'Liverpool', mark: false, openUpdate: true, openDel: true},
-        {id: Math.random(), status: statuses[1], name: 'Vancouver', mark: false, openUpdate: true, openDel: true},
-        {id: Math.random(), status: statuses[2], name: 'Los Gatos', mark: false, openUpdate: true, openDel: true},
-        {id: Math.random(), status: statuses[3], name: 'Hawaii', mark: false, openUpdate: true, openDel: true},
-    ]
+    const initialState = []
     const [task, setTask] = useState(initialState)
     const [updateNewTask, setUpdateNewTask] = useState('')
     const addTask = () => {
