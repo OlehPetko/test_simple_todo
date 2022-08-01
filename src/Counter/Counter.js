@@ -24,13 +24,17 @@ function Counter() {
       const newCount2 = count2.map(el => el.id === id ? {...el, counter: +el.counter + valueCounter2} : el)
         setCount2(newCount2)
     }
+    const resetCounter = (id) => {
+      const newCount = count.map(el => el.id === id ? {...el, counter: 0} : el)
+        setCount(newCount)
+    }
     return (
         <div className="App">
             <h1>COUNTER</h1>
             <button onClick={addCounter}>add counter</button>
-
             {count.map(el =>
                 <div key={el.id}>
+                    {el.counter !== 0 && <button style={{backgroundColor: 'grey'}} onClick={() => resetCounter(el.id)}>reset</button>}
                     <button onClick={() => minusPlusCounter(el.id, -1)}>-</button>
                     {el.counter}
                     <button onClick={() => minusPlusCounter(el.id, 1)}>+</button>
@@ -39,6 +43,7 @@ function Counter() {
             <hr/>
             <input type="number" value={newCount} onChange={e => setNewCount(e.target.value)}/>
             <button onClick={addCounter2}>add counter</button>
+
             {count2.map(count =>
                 <div key={count.id}>
                     <button onClick={() => plusMinusCounter2(count.id, - 1)}>-</button>
