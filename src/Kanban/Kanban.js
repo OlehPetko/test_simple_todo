@@ -9,16 +9,14 @@ function Kanban() {
     const [task, setTask] = useState(initialState)
     const [updateNewTask, setUpdateNewTask] = useState('')
     const addTask = () => {
-        const addNewTask = [...task, {
-            id: Math.random(),
-            status: statuses[0],
-            name: newTask,
-            mark: false,
-            openUpdate: true,
-            openDel: true
+        const addNewTask = [...task, {id: Math.random(), status: statuses[0], name: newTask, mark: false, openUpdate: true, openDel: true
         }]
         setTask(addNewTask)
         setNewTask('')
+    }
+    const openDelete = (id) => {
+      const newTask = task.map(el => el.id === id ? {...el, openDel: !el.openDel} : el)
+        setTask(newTask)
     }
     const del = (id) => {
         const updateTask = task.filter(el => el.id !== id)
@@ -61,7 +59,15 @@ function Kanban() {
                             {status !== 'todo' && <button onClick={() => moveTask(task.id, -1)}>up</button>}
                             {task.name}
                             {task.status !== 'done' && <button onClick={() => moveTask(task.id, 1)}>down</button>}
-                            <button onClick={() => del(task.id)}>delete</button>
+                            {task.openDel ?  <button onClick={() => openDelete(task.id)}>delete</button> :
+                            <div>
+                                <label>ARE YOU SURE?</label>
+                                <button onClick={() => del(task.id)}>yes delete</button>
+                                <label>OR</label>
+                                <button onClick={() => openDelete(task.id)}>cancel</button>
+                            </div>
+                            }
+
                             {task.openUpdate ? <button onClick={() => openUpdate(task.id)}>update</button> :
                                 <div>
                                     <input placeholder='your new task here' value={updateNewTask}
